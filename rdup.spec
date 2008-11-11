@@ -1,10 +1,10 @@
 %define	name	rdup
 %define	version	0.6.2
 %define	release	%mkrel 1
-%define	Rdup backup tool
+%define	summary Rdup backup tool
 
 Name:		%{name}
-Summary:	%{Summary}
+Summary:	%{summary}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://www.miek.nl/projects/rdup/rdup.tar.bz2
