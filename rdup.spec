@@ -1,5 +1,5 @@
 %define	name	rdup
-%define	version	0.6.2
+%define	version	0.6.3
 %define	release	%mkrel 1
 %define	summary Rdup backup tool
 
@@ -8,7 +8,6 @@ Summary:	%{summary}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://www.miek.nl/projects/rdup/rdup.tar.bz2
-Patch1:		rdup-0.6.2-pcre_copy.patch
 URL:		http://www.miek.nl/blog/articles/rdup/index.html
 License:	GPL
 Group:		Archiving/Backup
@@ -24,7 +23,6 @@ in a true Unix-way.
 
 %prep
 %setup -q 
-%patch1 -p0
 
 %build
 %configure
