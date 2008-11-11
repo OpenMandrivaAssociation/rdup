@@ -11,7 +11,7 @@ Source0:	http://www.miek.nl/projects/rdup/rdup.tar.bz2
 Patch1:		rdup-0.6.2-pcre_copy.patch
 URL:		http://www.miek.nl/blog/articles/rdup/index.html
 License:	GPL
-Group:		Tools/Backup
+Group:		Archiving/Backup
 BuildRoot:	 %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	glib2-devel 
 BuildRequires:	pcre-devel
