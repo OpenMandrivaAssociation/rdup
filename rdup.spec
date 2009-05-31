@@ -1,5 +1,5 @@
 %define	name	rdup
-%define	version	0.9.9
+%define	version	1.0.0
 %define	release	%mkrel 1
 %define	summary Rdup backup tool
 
