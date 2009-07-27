@@ -1,6 +1,6 @@
 %define	name	rdup
 %define	version	1.0.0
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 %define	summary Rdup backup tool
 
 Name:		%{name}
@@ -15,6 +15,7 @@ BuildRoot:	 %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	glib2-devel 
 BuildRequires:	pcre-devel
 BuildRequires:  libarchive-devel
+BuildRequires:	nettle-devel
 
 %description
 rdup is a platform for backups. It provides a list of files to backup 
