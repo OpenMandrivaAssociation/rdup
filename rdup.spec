@@ -1,6 +1,6 @@
 %define	name	rdup
-%define	version	1.0.0
-%define	release	%mkrel 2
+%define	version	1.0.2
+%define	release	%mkrel 1
 %define	summary Rdup backup tool
 
 Name:		%{name}
@@ -43,8 +43,9 @@ rm -rf %{buildroot}
 %_bindir/rdup
 %_bindir/rdup-tr
 %_bindir/rdup-up
+%_bindir/rdup-ln
+%_bindir/rdup-simple
 %dir %_libdir/rdup/
-%_libdir/rdup/*
 %_mandir/man1/*
 %_mandir/man7/*
 
