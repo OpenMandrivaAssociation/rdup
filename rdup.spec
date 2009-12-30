@@ -8,6 +8,7 @@ Summary:	%{summary}
 Version:	%{version}
 Release:	%{release}
 Source0:	http://www.miek.nl/projects/rdup/rdup-%{version}.tar.bz2
+Patch1:		rdup-1.0.3-strict_build.patch
 URL:		http://www.miek.nl/blog/articles/rdup/index.html
 License:	GPL
 Group:		Archiving/Backup
@@ -25,6 +26,7 @@ in a true Unix-way.
 
 %prep
 %setup -q 
+%patch1 -p0 -b .strict
 
 %build
 %configure
