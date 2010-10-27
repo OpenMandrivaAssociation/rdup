@@ -1,6 +1,6 @@
 %define	name	rdup
 %define	version	1.1.7
-%define	release	%mkrel 2
+%define	release	%mkrel 3
 %define	summary Rdup backup tool
 
 Name:		%{name}
@@ -27,13 +27,13 @@ in a true Unix-way.
 %setup -q 
 
 %build
-%configure
-%make
+%configure2_5x
+%make GCC='gcc %ldflags'
 
 %install
 rm -rf %{buildroot}
 
-%makeinstall
+%makeinstall_std
 
 %clean
 rm -rf %{buildroot}
