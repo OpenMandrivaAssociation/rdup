@@ -16,6 +16,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	pcre-devel
 BuildRequires:  libarchive-devel
 BuildRequires:	nettle-devel
+Patch0:  rdup-1.1.13-gcc47.patch
 
 %description
 rdup is a platform for backups. It provides a list of files to backup 
@@ -25,6 +26,7 @@ in a true Unix-way.
 
 %prep
 %setup -q 
+%patch0 -p1
 
 %build
 %configure2_5x
