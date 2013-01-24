@@ -1,6 +1,6 @@
 %define	name	rdup
 %define	version	1.1.13
-%define	release	2
+%define	release	3
 %define	summary Rdup backup tool
 
 Name:		%{name}
