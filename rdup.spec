@@ -30,7 +30,7 @@ in a true Unix-way.
 
 %build
 %configure2_5x
-%make GCC='gcc %ldflags'
+make GCC='gcc %ldflags'
 
 %install
 rm -rf %{buildroot}
