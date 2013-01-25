@@ -1,0 +1,11 @@
+--- rdup-tr.c.orig	2013-01-25 08:45:26.415611676 +0000
++++ rdup-tr.c	2013-01-25 08:45:35.721611134 +0000
+@@ -364,7 +364,7 @@
+ 
+ 	if (opt_output != O_RDUP) {
+ 		archive_write_close(archive);
+-		archive_write_finish(archive);
++		archive_write_free(archive);
+ 	}
+ 	g_free(readbuf);
+ 	g_free(buf);

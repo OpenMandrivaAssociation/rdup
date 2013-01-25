@@ -1,6 +1,6 @@
 %define	name	rdup
-%define	version	1.1.13
-%define	release	3
+%define	version	1.1.14
+%define	release	1
 %define	summary Rdup backup tool
 
 Name:		%{name}
@@ -16,7 +16,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	pcre-devel
 BuildRequires:  libarchive-devel
 BuildRequires:	nettle-devel
-Patch0:  rdup-1.1.13-gcc47.patch
+Patch0:  rdup-1.1.14-libarchive_deprecated.patch
 
 %description
 rdup is a platform for backups. It provides a list of files to backup 
@@ -26,7 +26,7 @@ in a true Unix-way.
 
 %prep
 %setup -q 
-%patch0 -p1
+%patch0 -p0
 
 %build
 %configure2_5x
