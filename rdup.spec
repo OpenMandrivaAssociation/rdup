@@ -13,7 +13,7 @@ URL:		http://www.miek.nl/blog/articles/rdup/index.html
 License:	GPL
 Group:		Archiving/Backup
 BuildRoot:	 %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	glib2-devel 
+BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pcre-devel
 BuildRequires:  libarchive-devel
 BuildRequires:	nettle-devel
