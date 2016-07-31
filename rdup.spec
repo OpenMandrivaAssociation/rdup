@@ -1,23 +1,17 @@
-%define	name	rdup
-%define	version	1.1.14
-%define release	2
-%define	summary Rdup backup tool
 %define debug_package          %{nil}
 
-Name:		%{name}
-Summary:	%{summary}
-Version:	%{version}
-Release:	%{release}
-Source0:	http://www.miek.nl/projects/rdup/rdup-%{version}.tar.bz2
-URL:		http://www.miek.nl/blog/articles/rdup/index.html
+Name:		rdup
+Summary:	Rdup backup tool
+Version:	1.1.15
+Release:	1
+Source0:	http://github.com/miekg/rdup/releases/rdup-%{version}.tar.gz
+URL:		http://github.com/miekg/rdup
 License:	GPL
 Group:		Archiving/Backup
-BuildRoot:	 %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pcre-devel
 BuildRequires:  libarchive-devel
 BuildRequires:	nettle-devel
-Patch0:  rdup-1.1.14-libarchive_deprecated.patch
 
 %description
 rdup is a platform for backups. It provides a list of files to backup 
@@ -27,19 +21,15 @@ in a true Unix-way.
 
 %prep
 %setup -q 
-%patch0 -p0
+%apply_patches
+autoreconf -fiv
 
 %build
 %configure2_5x
 make GCC='gcc %ldflags'
 
 %install
-rm -rf %{buildroot}
-
-%makeinstall_std
-
-%clean
-rm -rf %{buildroot}
+make install DESTDIR=%buildroot
 
 %files
 %doc todo 
