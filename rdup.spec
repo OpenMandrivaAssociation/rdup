@@ -3,7 +3,7 @@
 Name:		rdup
 Summary:	Rdup backup tool
 Version:	1.1.15
-Release:	1
+Release:	2
 Source0:	http://github.com/miekg/rdup/releases/rdup-%{version}.tar.gz
 URL:		http://github.com/miekg/rdup
 License:	GPL
