@@ -1,0 +1,31 @@
+From f08178e5de0d31cbd9bf17ab541a621a6f1f93fc Mon Sep 17 00:00:00 2001
+From: Niko Pavlinek <niko.pavlinek@gmail.com>
+Date: Sun, 10 Nov 2019 00:52:28 +0100
+Subject: [PATCH] Replace deprecated calls to g_memmove with memmove
+
+---
+ crypt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/crypt.c b/crypt.c
+index d61ca7e..fd9a74b 100644
+--- a/crypt.c
++++ b/crypt.c
+@@ -88,7 +88,7 @@ gchar *crypt_path_ele(struct aes_ctx * ctx, gchar * elem, GHashTable * tr)
+ 	source = g_malloc0(aes_size);
+ 	dest = g_malloc0(aes_size);
+ 
+-	g_memmove(source, elem, len);
++	memmove(source, elem, len);
+ 	aes_encrypt(ctx, aes_size, dest, source);
+ 
+ 	b64 = encode_base64(aes_size, dest);
+@@ -136,7 +136,7 @@ gchar *decrypt_path_ele(struct aes_ctx * ctx, char *b64, GHashTable * tr)
+ 	source = g_malloc0(aes_size);
+ 	dest = g_malloc0(aes_size);
+ 
+-	g_memmove(source, crypt, crypt_size);
++	memmove(source, crypt, crypt_size);
+ 	aes_decrypt(ctx, aes_size, dest, source);
+ 
+ 	g_free(source);

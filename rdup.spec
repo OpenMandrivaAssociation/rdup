@@ -3,8 +3,11 @@
 Name:		rdup
 Summary:	Rdup backup tool
 Version:	1.1.15
-Release:	2
+Release:	4
 Source0:	http://github.com/miekg/rdup/releases/rdup-%{version}.tar.gz
+Patch1:		f08178e5de0d31cbd9bf17ab541a621a6f1f93fc.patch
+# limit to aes256 
+Patch2:		rdup-nettle3.5.patch
 URL:		http://github.com/miekg/rdup
 License:	GPL
 Group:		Archiving/Backup
@@ -21,11 +24,11 @@ in a true Unix-way.
 
 %prep
 %setup -q 
-%apply_patches
+%autopatch -p1
 autoreconf -fiv
 
 %build
-%configure2_5x
+%configure
 make GCC='gcc %ldflags'
 
 %install

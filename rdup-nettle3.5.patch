@@ -1,0 +1,133 @@
+diff -ur rdup-1.1.15.orig/crypt.c rdup-1.1.15/crypt.c
+--- rdup-1.1.15.orig/crypt.c	2019-11-16 20:05:36.196229046 +0000
++++ rdup-1.1.15/crypt.c	2019-11-16 20:09:56.635212391 +0000
+@@ -18,19 +18,18 @@
+  * init the cryto
+  * with key  *key
+  * and length length
+- * lenght MUST be 16, 24 or 32
++ * lenght MUST be 32
+  * anything short will be zero padded to
+  * create a correct key
+  * return aes context
+  */
+-struct aes_ctx *crypt_init(gchar * key, gboolean crypt)
++struct aes256_ctx *crypt_init(gchar * key, gboolean crypt)
+ {
+-	guint length = strlen(key);
+-	struct aes_ctx *ctx = g_malloc(sizeof(struct aes_ctx));
++	struct aes256_ctx *ctx = g_malloc(sizeof(struct aes256_ctx));
+ 	if (crypt)
+-		aes_set_encrypt_key(ctx, length, (uint8_t *) key);
++		aes256_set_encrypt_key(ctx, (uint8_t *) key);
+ 	else
+-		aes_set_decrypt_key(ctx, length, (uint8_t *) key);
++		aes256_set_decrypt_key(ctx, (uint8_t *) key);
+ 	return ctx;
+ }
+ 
+@@ -70,7 +69,7 @@
+ /* encrypt and base64 encode path element
+  * return the result
+  */
+-gchar *crypt_path_ele(struct aes_ctx * ctx, gchar * elem, GHashTable * tr)
++gchar *crypt_path_ele(struct aes256_ctx * ctx, gchar * elem, GHashTable * tr)
+ {
+ 	guint aes_size, len;
+ 	guchar *source;
+@@ -89,7 +88,7 @@
+ 	dest = g_malloc0(aes_size);
+ 
+ 	memmove(source, elem, len);
+-	aes_encrypt(ctx, aes_size, dest, source);
++	aes256_encrypt(ctx, aes_size, dest, source);
+ 
+ 	b64 = encode_base64(aes_size, dest);
+ 	g_free(source);
+@@ -111,7 +110,7 @@
+ /* decrypt and base64 decode path element
+  * return the result
+  */
+-gchar *decrypt_path_ele(struct aes_ctx * ctx, char *b64, GHashTable * tr)
++gchar *decrypt_path_ele(struct aes256_ctx * ctx, char *b64, GHashTable * tr)
+ {
+ 	guint aes_size, len;
+ 	guchar *source;
+@@ -137,7 +136,7 @@
+ 	dest = g_malloc0(aes_size);
+ 
+ 	memmove(source, crypt, crypt_size);
+-	aes_decrypt(ctx, aes_size, dest, source);
++	aes256_decrypt(ctx, aes_size, dest, source);
+ 
+ 	g_free(source);
+ 	g_free(crypt);
+@@ -160,7 +159,7 @@
+ /**
+  * encrypt an entire path
+  */
+-gchar *crypt_path(struct aes_ctx * ctx, gchar * p, GHashTable * tr)
++gchar *crypt_path(struct aes256_ctx * ctx, gchar * p, GHashTable * tr)
+ {
+ 	gchar *q, *c, *t, *crypt, *xpath, *temp, d;
+ 	gboolean abs;
+@@ -221,7 +220,7 @@
+ /**
+  * decrypt an entire path
+  */
+-gchar *decrypt_path(struct aes_ctx * ctx, gchar * x, GHashTable * tr)
++gchar *decrypt_path(struct aes256_ctx * ctx, gchar * x, GHashTable * tr)
+ {
+ 
+ 	gchar *path, *q, *c, *t, *plain, *temp, d;
+@@ -282,7 +281,7 @@
+ 
+ /**
+  * Read the key from a file
+- * Key must be 16, 24 or 32 octets
++ * Key must be 32 octets
+  * Check for this - if larger than 32 cut it off
+  */
+ gchar *crypt_key(gchar * file)
+@@ -315,8 +314,8 @@
+ 		buf[32] = '\0';
+ 		return buf;
+ 	}
+-	if (s != 16 && s != 24 && s != 32) {
+-		msg(_("AES key must be 16, 24 or 32 bytes"));
++	if (s != 32) {
++		msg(_("AES key must be 32 bytes"));
+ 		g_free(buf);
+ 		return NULL;
+ 	}
+diff -ur rdup-1.1.15.orig/rdup-tr.c rdup-1.1.15/rdup-tr.c
+--- rdup-1.1.15.orig/rdup-tr.c	2016-03-02 15:39:44.000000000 +0000
++++ rdup-1.1.15/rdup-tr.c	2019-11-16 19:06:40.176538863 +0000
+@@ -21,7 +21,7 @@
+ #ifdef HAVE_LIBNETTLE
+ gchar *opt_crypt_key = NULL;	/* encryption key */
+ gchar *opt_decrypt_key = NULL;	/* decryption key */
+-struct aes_ctx *aes_ctx = NULL;
++struct aes256_ctx *aes_ctx = NULL;
+ #endif				/* HAVE_LIBNETTLE */
+ gint opt_verbose = 0;		/* be more verbose */
+ gint opt_output = O_RDUP;	/* default output */
+diff -ur rdup-1.1.15.orig/rdup-tr.h.in rdup-1.1.15/rdup-tr.h.in
+--- rdup-1.1.15.orig/rdup-tr.h.in	2016-03-02 15:39:44.000000000 +0000
++++ rdup-1.1.15/rdup-tr.h.in	2019-11-16 19:02:11.262556059 +0000
+@@ -88,10 +88,10 @@
+ gchar *slink(struct rdup *);
+ 
+ /* crypt.c */
+-struct aes_ctx * crypt_init(gchar *, gboolean);
+-gchar * crypt_path_ele(struct aes_ctx *, gchar *, GHashTable *);
+-gchar * decrypt_path_ele(struct aes_ctx *, gchar *, GHashTable *);
+-gchar * crypt_path(struct aes_ctx *, gchar *, GHashTable *);
+-gchar * decrypt_path(struct aes_ctx *, gchar *, GHashTable *);
++struct aes256_ctx * crypt_init(gchar *, gboolean);
++gchar * crypt_path_ele(struct aes256_ctx *, gchar *, GHashTable *);
++gchar * decrypt_path_ele(struct aes256_ctx *, gchar *, GHashTable *);
++gchar * crypt_path(struct aes256_ctx *, gchar *, GHashTable *);
++gchar * decrypt_path(struct aes256_ctx *, gchar *, GHashTable *);
+ char *  crypt_key(gchar *);
+ #endif  /* _RDUP_TR_H */
