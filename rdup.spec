@@ -10,7 +10,7 @@ Patch1:		f08178e5de0d31cbd9bf17ab541a621a6f1f93fc.patch
 Patch2:		rdup-nettle3.5.patch
 Patch3:		rdup-1.1.5-pcre2.patch
 Patch4:		rdup-1.1.5-install.patch
-URL:		http://github.com/miekg/rdup
+URL:		https://github.com/miekg/rdup
 License:	GPL
 Group:		Archiving/Backup
 BuildRequires:	pkgconfig(glib-2.0)
