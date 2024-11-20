@@ -3,7 +3,7 @@
 Name:		rdup
 Summary:	Rdup backup tool
 Version:	1.1.15
-Release:	8
+Release:	9
 Source0:	http://github.com/miekg/rdup/releases/rdup-%{version}.tar.gz
 Patch1:		f08178e5de0d31cbd9bf17ab541a621a6f1f93fc.patch
 # limit to aes256 
