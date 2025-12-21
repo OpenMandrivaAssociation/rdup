@@ -13,6 +13,11 @@ Patch4:		rdup-1.1.5-install.patch
 URL:		https://github.com/miekg/rdup
 License:	GPL
 Group:		Archiving/Backup
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libpcre2-8)
 BuildRequires:  pkgconfig(libarchive)
